@@ -1,21 +1,20 @@
-
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { DashboardLayout } from "@/dashboard/layouts/DashboardLayout"
 import { Users, BookOpen, UserCog, TrendingUp } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
 
 export default function DashboardPage() {
-  const { students, courses } = useData()
-  const { user } = useAuth()
+  // const { students, courses } = useData()
+  // const { user } = useAuth()
 
-  const activeStudents = students.filter((s) => s.active).length
-  const totalUsers = user?.role === "admin" ? 2 : 1
+  // const activeStudents = students.filter((s) => s.active).length
+  // const totalUsers = user?.role === "admin" ? 2 : 1
 
-  // Calculate students per course for chart
-  const chartData = courses.map((course) => ({
-    name: course.name,
-    estudiantes: students.filter((s) => s.courseId === course.id).length,
-  }))
+  // // Calculate students per course for chart
+  // const chartData = courses.map((course) => ({
+  //   name: course.name,
+  //   estudiantes: students.filter((s) => s.courseId === course.id).length,
+  // }))
 
   const stats = [
     {
@@ -49,8 +48,7 @@ export default function DashboardPage() {
   ]
 
   return (
-   
-    
+      <DashboardLayout title="Dashboard">
         <div className="space-y-6">
           {/* Stats Cards */}
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -95,5 +93,6 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
         </div>
+      </DashboardLayout>
   )
 }
