@@ -1,17 +1,31 @@
-
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, BookOpen, UserCog, TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts"
 
-export default function DashboardPage() {
-  const { students, courses } = useData()
-  const { user } = useAuth()
+// 🔹 DATA TEMPORAL (mock)
+const students = [
+  { id: 1, active: true, courseId: 1 },
+  { id: 2, active: false, courseId: 1 },
+  { id: 3, active: true, courseId: 2 },
+]
 
+const courses = [
+  { id: 1, name: "React" },
+  { id: 2, name: "Node.js" },
+]
+
+export const DashboardPage = () => {
   const activeStudents = students.filter((s) => s.active).length
-  const totalUsers = user?.role === "admin" ? 2 : 1
+  const totalUsers = 2
 
-  // Calculate students per course for chart
   const chartData = courses.map((course) => ({
     name: course.name,
     estudiantes: students.filter((s) => s.courseId === course.id).length,
@@ -49,51 +63,43 @@ export default function DashboardPage() {
   ]
 
   return (
-   
-    
-        <div className="space-y-6">
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat) => (
-              <Card key={stat.title} className="shadow-sm hover:shadow-md transition-shadow">
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium text-slate-600">{stat.title}</CardTitle>
-                  <div className={`p-2 rounded-lg ${stat.bgColor}`}>
-                    <stat.icon className={`h-5 w-5 ${stat.color}`} />
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-3xl font-bold text-slate-900">{stat.value}</div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* Chart */}
-          <Card className="shadow-sm">
-            <CardHeader>
-              <CardTitle className="text-slate-900">Estudiantes por Curso</CardTitle>
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((stat) => (
+          <Card key={stat.title}>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm text-slate-600">
+                {stat.title}
+              </CardTitle>
+              <div className={`p-2 rounded-lg ${stat.bgColor}`}>
+                <stat.icon className={`h-5 w-5 ${stat.color}`} />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                    <XAxis dataKey="name" stroke="#64748b" fontSize={12} />
-                    <YAxis stroke="#64748b" fontSize={12} />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "white",
-                        border: "1px solid #e2e8f0",
-                        borderRadius: "8px",
-                      }}
-                    />
-                    <Bar dataKey="estudiantes" fill="#3b82f6" radius={[8, 8, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <div className="text-3xl font-bold">{stat.value}</div>
             </CardContent>
           </Card>
-        </div>
+        ))}
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Estudiantes por Curso</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="estudiantes" fill="#3b82f6" radius={[8, 8, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

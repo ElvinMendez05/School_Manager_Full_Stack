@@ -28,9 +28,17 @@ export const DashboardSidebar = ({ isOpen, onClose }: Props) => {
 //   const { user } = useAuth()
   const location = useLocation()
 
+   const user = {
+    role: "admin",
+  }
+
   const filteredNavigation = navigation.filter(
-    (item) => !item.adminOnly || user?.role === "admin"
+    (item) => !item.adminOnly || user.role === "admin"
   )
+
+  // const filteredNavigation = navigation.filter(
+  //   (item) => !item.adminOnly || user?.role === "admin"
+  // )
 
   const sidebarContent = (
     <div className="flex flex-col h-full bg-white border-r">
