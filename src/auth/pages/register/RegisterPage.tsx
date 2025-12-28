@@ -20,11 +20,11 @@ export const RegisterPage = () => {
     setIsPosting(true)
 
     const formData = new FormData(event.target as HTMLFormElement);
-    const fullName = formData.get('fullName') as string;
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
+    const role = formData.get('role') as string;
     
-    const isValid = await register(fullName, email, password);
+    const isValid = await register(email, password, role);
     if (isValid) {
        navigate('/');
        return;   
@@ -49,35 +49,19 @@ export const RegisterPage = () => {
               </div>
                
                <div className="grid gap-2">
-                <Label htmlFor="fullName">Nombre Completo</Label>
-                <Input
-                  id="fullName"
-                  type="text"
-                  name="fullName"
-                  placeholder="Nombre completo..."
-                  required
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="email">Correo</Label>
+                <Label htmlFor="fullName">Introdusca su Email</Label>
                 <Input
                   id="email"
-                  type="email"
+                  type="text"
                   name="email"
                   placeholder="mail@google.com"
                   required
                 />
               </div>
+
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Contraseña</Label>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
-                  >
-                    ¿Olvidaste tu contraseña?
-                  </a>
                 </div>
                 <Input
                   id="password"
@@ -87,6 +71,18 @@ export const RegisterPage = () => {
                   placeholder="Contraseña"
                 />
               </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="email">Digite su Rol</Label>
+                <Input
+                  id="role"
+                  type="text"
+                  name="role"
+                  placeholder="admin/professor"
+                  required
+                />
+              </div>
+
               <Button type="submit" className="w-full" disabled={isPosting}>
                 Crear cuenta
               </Button>
