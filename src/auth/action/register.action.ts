@@ -3,15 +3,15 @@ import type { AuthResponse } from "../interface/auth.response"
 
 
 export const registerAction = async (
-    fullName: string, 
-    email: string,
+    email: string, 
     password: string,
+    role: string,
 ): Promise<AuthResponse> => {
    try {
       const {data} = await schoolApi.post<AuthResponse>('/auth/register', {
-        fullName,
         email,
         password,
+        role,
       })
       return data;
 

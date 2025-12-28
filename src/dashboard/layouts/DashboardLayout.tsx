@@ -3,19 +3,18 @@ import { Outlet } from "react-router"
 import { DashboardSidebar } from "../components/DashboardSidebar"
 import { DashboardHeader } from "../components/DashboardHeader"
 
-const DashboardLayout = () => {
+export const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Sidebar */}
       <DashboardSidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
 
-      {/* Main content */}
-      <div className="lg:pl-72 flex flex-col h-screen">
+      {/* Contenedor principal con el padding necesario para el sidebar fijo */}
+      <div className="flex flex-col min-h-screen lg:pl-72">
         <DashboardHeader onOpenSidebar={() => setSidebarOpen(true)} />
 
         <main className="flex-1 overflow-y-auto">
@@ -27,5 +26,3 @@ const DashboardLayout = () => {
     </div>
   )
 }
-
-export default DashboardLayout

@@ -17,7 +17,7 @@ type AuthState = {
     login: (email: string, password: string) => Promise<boolean>;
     logout: () => void;
     checkAuthStatus: () => Promise<boolean>;
-    register: (fullName: string, email: string, password: string) => Promise<boolean>;
+    register: (email: string, password: string, role: string) => Promise<boolean>;
 }
 
 export const useAuthStore = create<AuthState>()((set, get) => ({
@@ -70,9 +70,9 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
        }
     },
     
-     register: async(fullName: string, email: string, password: string) => {
+     register: async(email: string, password: string, role: string) => {
         try {
-            const data = await registerAction(fullName, email, password);
+            const data = await registerAction(email, password, role);
             localStorage.setItem('token', data.token);
 
             set({user: data.user, token: data.token, authStatus:'authenticated'})
