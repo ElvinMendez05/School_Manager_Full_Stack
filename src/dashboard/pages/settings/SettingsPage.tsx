@@ -1,24 +1,18 @@
-
-import { DashboardLayout } from "@/components/dashboard-layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { User, Mail, Shield } from "lucide-react"
+import { Mail, Shield } from "lucide-react"
+import { useAuthStore } from "@/auth/store/auth.store"
 
-export default function SettingsPage() {
-  const { user } = useAuth()
-
-  const getInitials = (name: string) => {
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2)
-  }
+export const SettingsPage = () => {
+ const { user } = useAuthStore()
+ 
+   const getInitials = (email?: string | null) => {
+     if (!email) return "?"
+     return email.slice(0, 2).toUpperCase()
+   }
 
   return (
-      <DashboardLayout title="Configuración">
         <div className="space-y-6 max-w-3xl">
           {/* Profile Card */}
           <Card className="shadow-sm">
@@ -29,11 +23,11 @@ export default function SettingsPage() {
               <div className="flex items-center gap-4">
                 <Avatar className="h-20 w-20">
                   <AvatarFallback className="bg-blue-600 text-white text-xl">
-                    {user ? getInitials(user.name) : "U"}
+                    {user ? getInitials(user.email) : "U"}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="text-xl font-semibold text-slate-900">{user?.name}</h3>
+                  <h3 className="text-xl font-semibold text-slate-900">{user?.email}</h3>
                   <Badge
                     variant={user?.role === "admin" ? "default" : "secondary"}
                     className={user?.role === "admin" ? "bg-violet-100 text-violet-700" : "bg-blue-100 text-blue-700"}
@@ -44,15 +38,15 @@ export default function SettingsPage() {
               </div>
 
               <div className="space-y-4 pt-4 border-t">
-                <div className="flex items-center gap-3">
+                {/* <div className="flex items-center gap-3">
                   <div className="p-2 bg-slate-100 rounded-lg">
                     <User className="h-5 w-5 text-slate-600" />
                   </div>
                   <div>
                     <p className="text-sm text-slate-500">Nombre</p>
-                    <p className="font-medium text-slate-900">{user?.name}</p>
+                    <p className="font-medium text-slate-900">{user?.email}</p>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-slate-100 rounded-lg">
@@ -98,6 +92,5 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
         </div>
-      </DashboardLayout>
   )
 }

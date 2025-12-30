@@ -1,10 +1,4 @@
-"use client"
-
 import { useState } from "react"
-import { AuthGuard } from "@/components/auth-guard"
-import { DashboardLayout } from "@/components/dashboard-layout"
-import { useData } from "@/lib/data-store"
-import type { Student } from "@/lib/data-store"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -24,7 +18,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 
-export default function StudentsPage() {
+export const StudentsPage = () => {
   const { students, courses, deleteStudent } = useData()
   const [searchTerm, setSearchTerm] = useState("")
   const [filterCourse, setFilterCourse] = useState<string>("all")
@@ -70,8 +64,6 @@ export default function StudentsPage() {
   }
 
   return (
-    <AuthGuard>
-      <DashboardLayout title="Estudiantes">
         <div className="space-y-6">
           {/* Header and Filters */}
           <Card className="shadow-sm">
@@ -254,7 +246,6 @@ export default function StudentsPage() {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </DashboardLayout>
-    </AuthGuard>
+
   )
 }
