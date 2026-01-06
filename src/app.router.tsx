@@ -8,6 +8,8 @@ import { NotAuthenticatedRoute } from './components/routes/ProtectedRoutes';
 import {DashboardLayout} from './dashboard/layouts/DashboardLayout';
 import { DashboardPage } from './dashboard/pages/dashboard/DashboardPage';
 import { SettingsPage } from './dashboard/pages/settings/SettingsPage';
+import { StudentsPage } from './dashboard/pages/students/StudentsPage';
+import { CoursesPage } from './dashboard/pages/course/CoursesPage';
 
 const AuthLayout = lazy(() => import('./auth/layouts/AuthLayout'));
 // const AdminLayout = lazy(() => import('./admin/layouts/AdminLayout'));
@@ -22,6 +24,14 @@ export const appRouter = createBrowserRouter([
         index: true,
         element: <DashboardPage />,
       },
+      {
+        path: 'students',
+         element: <StudentsPage />,
+       },
+       {
+        path: 'courses',
+         element: <CoursesPage />,
+       },
       {
         path: 'settings',
          element: <SettingsPage />,
